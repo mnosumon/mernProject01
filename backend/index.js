@@ -1,10 +1,8 @@
 const express = require("express");
 const app = express();
 const mongoose = require("mongoose");
-
+const Navbar = require("./model/navModel");
 const cors = require("cors");
-
-const { Schema } = mongoose;
 
 mongoose
   .connect(
@@ -17,6 +15,13 @@ app.use(express.json());
 
 app.post("/navbar", function (req, res) {
   console.log(req.body);
+  let data = new Navbar(req.body);
+  data.save();
+});
+
+app.get("/navitem", async function (req, res) {
+  let data = await Navbar.find({});
+  res.send(data);
 });
 
 app.listen(8000);
