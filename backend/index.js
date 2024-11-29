@@ -4,9 +4,10 @@ const app = express();
 const cors = require("cors");
 
 app.use(cors());
+app.use(express.json());
 
 app.post("/navbar", function (req, res) {
-  console.log("Navbar");
+  console.log(req.body);
 });
 
 app.listen(8000);
