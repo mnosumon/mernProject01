@@ -17,10 +17,11 @@ app.post("/navbar", function (req, res) {
   console.log(req.body);
   let data = new Navbar(req.body);
   data.save();
+  res.send("submited");
 });
 
 app.get("/navitem", async function (req, res) {
-  let data = await Navbar.find({});
+  let data = await Navbar.findOne({});
   res.send(data);
 });
 
