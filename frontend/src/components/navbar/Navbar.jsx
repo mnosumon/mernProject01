@@ -6,13 +6,16 @@ import axios from "axios";
 import { useState } from "react";
 
 const Navbar = () => {
-  const [list, setList] = useState("");
-  console.log(list);
+  const [list, setList] = useState([]);
+  const [buttonText, setButtonText] = useState();
+  const [buttonShow, setButtonShow] = useState();
 
   useEffect(() => {
     const fetchData = async () => {
       const data = await axios.get("http://localhost:8000/navitem");
       setList(data.data.menuItem.split(","));
+      setButtonText(data.data.buttonText);
+      setButtonShow(data.data.buttonShow);
     };
     fetchData();
   }, []);
@@ -25,13 +28,15 @@ const Navbar = () => {
           </a>
         </div>
         <ul className="nav-links">
-          {list.map((item) => (
-            <li>{item}</li>
+          {list.map((item, index) => (
+            <li key={index}>{item}</li>
           ))}
         </ul>
-        <div className="contact-button">
-          <a href="#">Contact Us</a>
-        </div>
+        {buttonShow && (
+          <div className="contact-button">
+            <a href="#">{buttonText}</a>
+          </div>
+        )}
       </nav>
     </section>
   );
