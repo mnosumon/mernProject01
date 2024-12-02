@@ -3,55 +3,46 @@ import "./navbar.css";
 import axios from "axios";
 
 const Navbar = () => {
-  const hanldeSubmit = () => {
-    axios
+  const [menu, setMenu] = useState("");
+  const [buttonText, setButtonText] = useState("");
+  const [buttonShow, setButtonShow] = useState(false);
+  const hanldeSubmit = async () => {
+    await axios
       .post("http://localhost:8000/navbar", {
-        menuItem: "Home, About, Service, Banner",
+        menuItem: menu,
+        buttonText: buttonText,
+        buttonShow: buttonShow,
       })
-      .then(() => {
-        console.log("success");
+      .then((res) => {
+        console.log(res);
       })
       .catch((error) => {
         console.log(error);
       });
   };
+
+  const handleMenu = (e) => {
+    setMenu(e.target.value);
+  };
+  const handleButtonText = (e) => {
+    setButtonText(e.target.value);
+  };
+  const handleButtonShow = (e) => {
+    setButtonShow(e.target.checked);
+  };
   return (
-    <div class="form-container">
-      <form action="/submit-form" method="POST" class="form">
-        <div class="form-group">
-          <label for="file" class="form-label">
-            Upload File
-          </label>
-          <input id="file" type="file" name="file" class="form-input" />
-        </div>
-        <div class="form-group">
-          <label for="item1" class="form-label">
-            Item 1
-          </label>
-          <input
-            id="item1"
-            type="text"
-            name="item1"
-            placeholder="Enter item 1"
-            class="form-input"
-          />
-        </div>
-        <div class="form-group">
-          <label for="item2" class="form-label">
-            Item 2
-          </label>
-          <input
-            id="item2"
-            type="text"
-            name="item2"
-            placeholder="Enter item 2"
-            class="form-input"
-          />
-        </div>
-        <button onClick={hanldeSubmit} type="submit" class="form-button">
-          Submit
-        </button>
-      </form>
+    <div className="form-container">
+      <input onChange={handleMenu} type="text" className="form-inpu" />
+      <input onChange={handleButtonText} type="text" className="form-inpu" />
+      <input
+        onChange={handleButtonShow}
+        type="checkbox"
+        className="form-inpu"
+      />
+
+      <button onClick={hanldeSubmit} className="form-button">
+        Submit
+      </button>
     </div>
   );
 };
