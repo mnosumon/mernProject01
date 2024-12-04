@@ -61,7 +61,7 @@ const Navbar = () => {
         className="form-inpu"
       />
       <input
-        value={buttonShow}
+        checked={buttonShow}
         onChange={handleButtonShow}
         type="checkbox"
         className="form-inpu"
