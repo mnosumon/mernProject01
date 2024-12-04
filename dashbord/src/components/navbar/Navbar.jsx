@@ -7,6 +7,8 @@ const Navbar = () => {
   const [menu, setMenu] = useState("");
   const [buttonText, setButtonText] = useState("");
   const [buttonShow, setButtonShow] = useState(false);
+  const [id, setId] = useState("");
+
   const hanldeSubmit = async () => {
     await axios
       .post("http://localhost:8000/navbar", {
@@ -36,18 +38,30 @@ const Navbar = () => {
     const fetchData = async () => {
       const data = await axios.get("http://localhost:8000/navitem");
       console.log(data.data);
-      setMenu(data.data.menu);
+      setMenu(data.data.menuItem);
       setButtonText(data.data.buttonText);
       setButtonShow(data.data.buttonShow);
+      setId(data.data._id);
     };
     fetchData();
   }, []);
 
   return (
     <div className="form-container">
-      <input onChange={handleMenu} type="text" className="form-inpu" />
-      <input onChange={handleButtonText} type="text" className="form-inpu" />
       <input
+        value={menu}
+        onChange={handleMenu}
+        type="text"
+        className="form-inpu"
+      />
+      <input
+        value={buttonText}
+        onChange={handleButtonText}
+        type="text"
+        className="form-inpu"
+      />
+      <input
+        value={buttonShow}
         onChange={handleButtonShow}
         type="checkbox"
         className="form-inpu"
