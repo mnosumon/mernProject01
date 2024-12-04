@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import "./navbar.css";
 import axios from "axios";
+import { useEffect } from "react";
 
 const Navbar = () => {
   const [menu, setMenu] = useState("");
@@ -30,6 +31,18 @@ const Navbar = () => {
   const handleButtonShow = (e) => {
     setButtonShow(e.target.checked);
   };
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const data = await axios.get("http://localhost:8000/navitem");
+      console.log(data.data);
+      setMenu(data.data.menu);
+      setButtonText(data.data.buttonText);
+      setButtonShow(data.data.buttonShow);
+    };
+    fetchData();
+  }, []);
+
   return (
     <div className="form-container">
       <input onChange={handleMenu} type="text" className="form-inpu" />
