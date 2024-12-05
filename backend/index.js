@@ -25,4 +25,11 @@ app.get("/navitem", async function (req, res) {
   res.send(data);
 });
 
+app.put("/navbar/:id", function (req, res) {
+  console.log(req.params.id);
+  Navbar.findByIdAndUpdate(req.params.id, req.body).then(() => {
+    res.send("Update");
+  });
+});
+
 app.listen(8000);
