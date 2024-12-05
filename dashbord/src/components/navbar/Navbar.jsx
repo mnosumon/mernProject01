@@ -1,7 +1,6 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./navbar.css";
 import axios from "axios";
-import { useEffect } from "react";
 
 const Navbar = () => {
   const [menu, setMenu] = useState("");
@@ -80,7 +79,7 @@ const Navbar = () => {
         type="checkbox"
         className="form-inpu"
       />
-
+      <handleButtonShow />
       <button onClick={hanldeSubmit} className="form-button">
         Submit
       </button>
