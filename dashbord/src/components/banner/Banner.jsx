@@ -7,7 +7,6 @@ const Banner = () => {
   const [paregraph, setParegraph] = useState("");
   const [buttonText, setButtonText] = useState("");
   const [buttonShow, setButtonShow] = useState(false);
-  console.log(buttonShow);
 
   const handleSubmit = () => {
     console.log("hello");

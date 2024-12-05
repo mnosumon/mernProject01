@@ -9,19 +9,34 @@ const Navbar = () => {
   const [buttonShow, setButtonShow] = useState(false);
   const [id, setId] = useState("");
 
-  const hanldeSubmit = async () => {
-    await axios
-      .post("http://localhost:8000/navbar", {
-        menuItem: menu,
-        buttonText: buttonText,
-        buttonShow: buttonShow,
-      })
-      .then((res) => {
-        console.log(res);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
+  const hanldeSubmit = () => {
+    if (id) {
+      axios
+        .put("http://localhost:8000/navbar/" + id, {
+          menuItem: menu,
+          buttonText: buttonText,
+          buttonShow: buttonShow,
+        })
+        .then((res) => {
+          console.log(res);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    } else {
+      axios
+        .post("http://localhost:8000/navbar/", {
+          menuItem: menu,
+          buttonText: buttonText,
+          buttonShow: buttonShow,
+        })
+        .then((res) => {
+          console.log(res);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    }
   };
 
   const handleMenu = (e) => {
@@ -37,7 +52,6 @@ const Navbar = () => {
   useEffect(() => {
     const fetchData = async () => {
       const data = await axios.get("http://localhost:8000/navitem");
-      console.log(data.data);
       setMenu(data.data.menuItem);
       setButtonText(data.data.buttonText);
       setButtonShow(data.data.buttonShow);
